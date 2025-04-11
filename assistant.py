@@ -3,14 +3,6 @@ import shutil
 import locale
 from datetime import datetime
 
-locale.setlocale(locale.LC_TIME, 'es_ES.UTF-8')
-mes_actual_num = datetime.now().month
-anio_actual = datetime.now().year
-mes_actual = datetime.now().strftime("%B").capitalize()
-print(type(mes_actual_num))
-
-#mes_actual_num = 12
-
 def encontrar_fecha(anio_siguiente, mes_siguiente, anio_actual):
     fecha_siguiente = datetime(anio_siguiente, mes_siguiente, 1)
     nombre_mes_siguiente = fecha_siguiente.strftime("%B").capitalize()
@@ -45,6 +37,13 @@ def crear_carpeta_cambio_de_mes(destination):
     else:
         print("Carpeta no creada")
 
+locale.setlocale(locale.LC_TIME, 'es_ES.UTF-8')
+mes_actual_num = datetime.now().month
+anio_actual = datetime.now().year
+mes_actual = datetime.now().strftime("%B").capitalize()
+print(type(mes_actual_num))
+
+mes_actual_num = 12
 
 if mes_actual_num == 12:
     mes_siguiente = 1
