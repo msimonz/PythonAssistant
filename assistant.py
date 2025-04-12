@@ -48,13 +48,19 @@ def modificar_archivos(cuenta_de_cobro, formato_de_aprobacion, nombre_mes_siguie
     aprobacion_sheet = aprobacion.active
     _, dias_mes_siguiente = calendar.monthrange(anio, mes_siguiente)
     if dias_mes_siguiente > 30:
-        print("Días laborados desde el 01 al 31 de {nombre_mes_siguiente}".format(nombre_mes_siguiente=nombre_mes_siguiente))
         cobro_sheet["C15"] = "Días laborados desde el 01 al 31 de {nombre_mes_siguiente}".format(nombre_mes_siguiente=nombre_mes_siguiente)
-        #numero = cobro_sheet["H3"]
+        aprobacion_sheet["J7"] = "1 al 31 de {nombre_mes_siguiente}".format(nombre_mes_siguiente=nombre_mes_siguiente)
+        numero = cobro_sheet["H3"]
+        numero.value += 1
+        cobro_sheet["H3"] = numero.value
     else:
-        print("Días laborados desde el 01 al {dias_mes_siguiente} de {nombre_mes_siguiente}".format(dias_mes_siguiente=dias_mes_siguiente, nombre_mes_siguiente=nombre_mes_siguiente))
         cobro_sheet["C15"] = "Días laborados desde el 01 al {dias_mes_siguiente} de {nombre_mes_siguiente}".format(dias_mes_siguiente=dias_mes_siguiente, nombre_mes_siguiente=nombre_mes_siguiente)
+        aprobacion_sheet["J7"] = "1 al {dias_mes_siguiente} de {nombre_mes_siguiente}".format(dias_mes_siguiente=dias_mes_siguiente, nombre_mes_siguiente=nombre_mes_siguiente)
+        numero = cobro_sheet["H3"]
+        numero.value += 1
+        cobro_sheet["H3"] = numero.value
     cobro.save(cuenta_de_cobro)
+    aprobacion.save(formato_de_aprobacion)
 
 
 locale.setlocale(locale.LC_TIME, 'es_ES.UTF-8')
