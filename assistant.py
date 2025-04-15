@@ -79,8 +79,6 @@ sender = "simon.marquezok@gmail.com"
 sender_password = "mvva dwhv tlgn kikh"
 recipient = "simon.marquezok@gmail.com"
 
-#mes_actual_num = 12
-
 if mes_actual_num == 12:
     mes_siguiente = 1
     anio_siguiente = anio_actual + 1
