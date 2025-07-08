@@ -6,7 +6,7 @@ import time
 import os
 
 def excel_to_pdf(ruta_excel, download_dir):
-
+    print("Convirtiendo a PDF")
     options = Options()
     options.add_experimental_option("prefs", {
         "download.default_directory": download_dir,
@@ -19,6 +19,7 @@ def excel_to_pdf(ruta_excel, download_dir):
 
     try:
         driver.get("https://www.ilovepdf.com/es/excel_a_pdf")
+        print("Entrando a ilovepdf")
         time.sleep(2)
 
         input_file = driver.find_element(By.CSS_SELECTOR, "input[type='file']")

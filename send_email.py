@@ -5,19 +5,20 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
 
-def send_email(recipient, sender, sender_password, mes, file_route):
+def send_email(recipient, sender, sender_token, mes, file_route):
     msg = MIMEMultipart()
     msg['From'] = sender
     msg['To'] = recipient
     msg['Subject'] = 'Cuenta de Cobro y Planilla {mes}'.format(mes=mes)
-    with open(file_route, "rb") as f:
-        attached_file = MIMEApplication(f.read(), Name=os.path.basename(file_route))
-        attached_file['Content-Disposition'] = f'attachment; filename="{os.path.basename(file_route)}"'
-        msg.attach(attached_file)
+    for file, path in file_route.items():
+        with open(path, "rb") as f:
+            attached_file = MIMEApplication(f.read(), Name=os.path.basename(path))
+            attached_file['Content-Disposition'] = f'attachment; filename="{os.path.basename(path)}"'
+            msg.attach(attached_file)
     try:
         servidor = smtplib.SMTP('smtp.gmail.com', 587)
         servidor.starttls()
-        servidor.login(sender, sender_password)
+        servidor.login(sender, sender_token)
         servidor.sendmail(sender, recipient, msg.as_string())
         servidor.quit()
         print("✅ Correo con adjunto enviado")
